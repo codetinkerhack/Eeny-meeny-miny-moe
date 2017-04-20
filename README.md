@@ -33,7 +33,7 @@ The problem is quite closely resembles well known Josephus problem. This problem
 As initial implementation I've decided to use the reasonably simple solution (as well easy to understand). 
 After some of the questions are answered solution can be optimised to suite specific need.
 
-There are number of considerations:
+*Some considerations before we identify optimisations:*
 
 * Speed to produce the whole sequence. (Batch processing)
 * Speed to retrieve following value. (Realtime feed)
