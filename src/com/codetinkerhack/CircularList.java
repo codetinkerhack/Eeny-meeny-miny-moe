@@ -2,6 +2,9 @@ package com.codetinkerhack;
 
 /**
  * Created by evgeniys on 21/04/2017.
+ *
+ * Simple implementation of doubly linked circular list
+ *
  */
 public class CircularList<T> {
 
@@ -11,10 +14,9 @@ public class CircularList<T> {
     private Integer size = 0;
 
     public Node<T> insert(Node<T> insertedNode) {
+        size++;
 
         if (current != null) {
-            size++;
-
             Node<T> next = current.getNext();
 
             current.setNext(insertedNode);
@@ -45,6 +47,10 @@ public class CircularList<T> {
             } else {
                 Node<T> next = current.getNext();
                 Node<T> prev = current.getPrev();
+
+                current.setNext(null);
+                current.setPrev(null);
+
                 next.setPrev(prev);
                 prev.setNext(next);
 
@@ -69,6 +75,9 @@ public class CircularList<T> {
     }
 
     public Node<T> getNext() {
+
+        if (current == null) return  null;
+
         Node<T> next = current.getNext();
         current = next;
         return next;
@@ -76,10 +85,17 @@ public class CircularList<T> {
     }
 
     public Node<T> getPrev() {
+
+        if (current == null) return  null;
+
         Node<T> next = current.getNext();
         current = next;
 
         return next;
+    }
+
+    public void reset() {
+        current = first;
     }
 
     public static class Node<T> {

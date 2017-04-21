@@ -19,13 +19,13 @@ public class GameSimpleImpl implements Game {
         ArrayList<Integer> children = new ArrayList<>(n);
         ArrayList<Integer> eliminationSequence = new ArrayList<>(n);
 
-        for(int i = 0;i < n;i++){
+        for(int i = 1;i <= n;i++){
             children.add(i);
         }
 
         while(children.size() > 0){
             currentIndex = (currentIndex + k - 1) % children.size();
-            eliminationSequence.add(children.get(currentIndex) + 1);
+            eliminationSequence.add(children.get(currentIndex));
             children.remove(currentIndex);
         }
 

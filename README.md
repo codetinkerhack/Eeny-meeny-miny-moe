@@ -22,13 +22,40 @@ where and why you have sacrificed performance for maintainability or visa versa 
 
 **Solution:**
 
-The problem is quite closely resembles well known Josephus problem. This problem has number of solutions:
+The problem is quite closely resembles well known Josephus problem.
 
-1) Simple - using arrays and resizing arrays. Complexity is O(n^2)
-2) Simple - using Linked lists. Complexity is O(kn)
-3) More complex - using Trees like structures optimised for traversals and removal of elements. Complexity is O(n log n)
+Game requires data structure to store children and should allow following operations:
 
-(To verify: ) All above will perform relatively similar on modern CPU architecture. 
+1) Count / Skip K positions
+2) Retrieve Child at current position 
+3) Remove Child at current position
+
+Data structure should support quick traversals and retrieval, remove operations. There are different implications on
+performance and memory depending on the datastructure used.
+
+1) Array lists. 
+
+Array lists is backed by arrays. This structue is optimised for O(1) retrieval at K index position.
+Sequencial traversal is O(1). Removal of the elements is costly
+
+Complexity is O(n^2)
+
+2) Linked lists (or Circular list - doubly linked list with return to first element when last reached).
+
+This structure is backed by list of linked nodes. Sequencial traversal is O(1). Removal is O(1). Insertion is O(1). 
+Index at K position look up is O(K)
+
+Complexity is O(kn)
+
+
+
+-------
+Explore on:
+
+3) Trees-like index structures optimised for traversals and removal of elements. 
+
+Complexity is O(n log n)
+
 
 As initial implementation I've decided to use the reasonably simple solution (as well easy to understand). 
 After some of the questions are answered solution can be optimised to suite specific need.
