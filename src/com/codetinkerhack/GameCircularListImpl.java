@@ -1,7 +1,6 @@
 package com.codetinkerhack;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
  * Created by evgeniys on 21/04/2017.
