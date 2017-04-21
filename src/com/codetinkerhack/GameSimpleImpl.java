@@ -7,11 +7,7 @@ import java.util.ArrayList;
  */
 public class GameSimpleImpl implements Game {
 
-    public GameSimpleImpl() {
-
-    }
-
-
+    @Override
     public Integer[] getSequence(int n, int k) {
 
         if ( n <= 0  || k <= 0) {
@@ -33,7 +29,7 @@ public class GameSimpleImpl implements Game {
             children.remove(currentIndex);
         }
 
-        return eliminationSequence.toArray(new Integer[n]);
+        return eliminationSequence.toArray(new Integer[0]);
     }
 
 }
