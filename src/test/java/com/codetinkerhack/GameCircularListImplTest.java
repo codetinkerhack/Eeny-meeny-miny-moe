@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import static org.junit.Assert.assertNotNull;
+
 /**
  * Created by evgeniys on 21/04/2017.
  */
@@ -14,36 +16,35 @@ public class GameCircularListImplTest extends GameTest {
         game = new GameCircularListImpl();
     }
 
-    // 2,147,483 Children with K = 1 runs around 17 seconds
+    // 21,474,836 Children with K = 1 runs around 17 seconds
     @Ignore
     @Test
     public void testLargeNumberStepOneCompletes() {
-        GameCircularListImpl game = new GameCircularListImpl();
-        game.getSequence(Integer.MAX_VALUE / 100, 1);
+        Object result = game.getSequence(Integer.MAX_VALUE / 100, 1);
+        assertNotNull(result);
     }
 
-    // 2,147,483 Children with K = 10 runs around 23 seconds
+    // 21,474,836 Children with K = 10 runs around 23 seconds
     @Ignore
     @Test
     public void testLargeNumberStepTenCompletes() {
-        GameCircularListImpl game = new GameCircularListImpl();
-        game.getSequence(Integer.MAX_VALUE / 100, 10);
+        Object result = game.getSequence(Integer.MAX_VALUE / 100, 10);
+        assertNotNull(result);
     }
 
-
-    // 2,147,483 Children with K = 100 runs around 1m 40 seconds
+    // 21,474,836 Children with K = 100 runs around 1m 40 seconds
     @Ignore
     @Test
     public void testLargeNumberStepHundredCompletes() {
-        GameCircularListImpl game = new GameCircularListImpl();
-        game.getSequence(Integer.MAX_VALUE / 100, 100);
+        Object result = game.getSequence(Integer.MAX_VALUE / 100, 100);
+        assertNotNull(result);
     }
 
-    // 2,147,483 Children with K = 1000 runs around 15m
+    // 21,474,836 Children with K = 1000 runs around 15m
     @Ignore
     @Test
     public void testLargeNumberStepHThousandCompletes() {
-        GameCircularListImpl game = new GameCircularListImpl();
-        game.getSequence(Integer.MAX_VALUE / 100, 1000);
+        Object result = game.getSequence(Integer.MAX_VALUE / 100, 1000);
+        assertNotNull(result);
     }
 }

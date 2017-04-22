@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import static org.junit.Assert.assertNotNull;
+
 /**
  * Created by evgeniys on 21/04/2017.
  */
@@ -18,7 +20,7 @@ public class GameSimpleImplTest extends GameTest {
     @Ignore
     @Test
     public void testLargeNumberStepOneCompletes() {
-        GameSimpleImpl game = new GameSimpleImpl();
-        game.getSequence(Integer.MAX_VALUE / 100, 1);
+        Object result = game.getSequence(Integer.MAX_VALUE / 100, 1);
+        assertNotNull(result);
     }
 }

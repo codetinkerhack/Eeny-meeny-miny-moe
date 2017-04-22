@@ -28,7 +28,7 @@ public class GameCircularListImpl implements Game {
 
         // run main elimination loop
         while(children.hasNext()){
-            eliminationSequence.add(children.get(k));
+            eliminationSequence.add(children.skipK(k));
             children.remove();
         }
 

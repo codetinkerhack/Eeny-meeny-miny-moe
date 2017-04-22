@@ -77,7 +77,7 @@ public class CircularList<T> {
         return current.getValue();
     }
 
-    public T get(int k) {
+    public T skipK(int k) {
 
         for(int i = 1; i < k; i++) {
             getNext();
