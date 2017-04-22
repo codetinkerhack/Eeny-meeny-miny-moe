@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by evgeniys on 19/04/2017.
  */
-public class GameSimpleImpl implements Game {
+public class GameArrayListImpl implements Game {
 
     @Override
     public List<Integer> getSequence(int n, int k) {

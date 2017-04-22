@@ -79,7 +79,9 @@ public class CircularList<T> {
 
     public T skipK(int k) {
 
-        for(int i = 1; i < k; i++) {
+        int k1 = (k - 1) % size;
+
+        for(int i = 0; i < k1; i++) {
             getNext();
         }
         return getCurrent();

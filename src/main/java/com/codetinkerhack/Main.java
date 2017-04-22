@@ -26,7 +26,7 @@ public class Main {
             System.exit(1);
         }
 
-        GameCircularListImpl game = new GameCircularListImpl();
+        GameTreeListImpl game = new GameTreeListImpl();
         List<Integer> result = game.getSequence(n, k);
 
         System.out.printf("Winner is: %d ", result.get(result.size() - 1));

@@ -9,11 +9,11 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by evgeniys on 21/04/2017.
  */
-public class GameSimpleImplTest extends GameTest {
+public class GameArrayListImplTest extends GameTest {
 
     @Before
     public void init() {
-        game = new GameSimpleImpl();
+        game = new GameArrayListImpl();
     }
 
     // Aborted. Takes more than 30 min and still running.

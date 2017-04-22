@@ -1,5 +1,13 @@
 # Eeny-meeny-miny-moe
 
+### Prerequisites
+
+Project uses gradle to build jar artifacts, execute tests. Code requires JDK 1.8 to compile.
+in order to execute project from command line run following command:
+
+gradle run
+
+
 ## Problem:
  
 Consider the following children’s game:
@@ -63,7 +71,7 @@ for example 32GB will be equal to storing N ~ 430 million elements
 * For large N that do not fit in memory (e.g: 2 * N * 40 = more than 128 GB?) - data may need to be partially cached in memory and mostly stored on disk.
 
 
-## Scenario: N is small enough to fit in memory
+## Scenario 1: N is small enough to fit in memory
 
 In memory data structure should support quick random look up, remove operations.
 Different performance for those operations reflects on CPU cycles and memory performance. It is briefly discussed for each of the data structures.
@@ -73,61 +81,95 @@ Different performance for those operations reflects on CPU cycles and memory per
 Array list is backed by arrays. This structure is optimised for O(1) look up at K index position. 
 However removal of the elements is expensive O(N) operation. 
 
-As remove operation is used many times on every iterations of N elements overall complexity is O(N^2).
+As remove operation is used on every iteration over N elements overall complexity of implementation using Array list is O(N^2).
 
 This structure / algorithm works fine for small N, large K.
 Each removal of element triggers resizing of array. Resizing of array is done by creating a copy. 
 It utilises max of 2 * N elements storage at every step. Doing it for large sets for every of N iterations is quite expensive in terms of total CPU cycles 
-(as well creates memory waste which is usually not a big problem for GC but still requires CPU).
+(as well creates memory waste which is usually not a big problem for Garbage Collection (GC) but still requires CPU).
 Removal of elements at every iteration is the reason algorithm performs poorly for large N.
 
-### Linked list
+### Linked list (Circular list)
 
-Or slightly more convenient Circular list. Circular List is doubly linked list that jumps to first element of sequence after last element was reached and next element requested.
+Or slightly more convenient Circular list. Circular List is a linked list that jumps back to first element of sequence after last element was reached and next element requested.
 
 This structure is backed by chain of linked elements. 
 Look up by index at K position is expensive O(K) operation (as it requires skipping K positions). 
-Removal of elements is optimised O(1) operation. 
+Removal of elements is fast O(1) operation. 
 
 As look up by index K is used for N iterations overall complexity is O(KN)
 
 This structure works well for large N, small K as average complexity works out to be close to O(N) for small K
-This structure as well does not have as much impact on memory / does not produce as much waste compared to an Array List as removal operation simply 
-re-links A-B-C chain to A-C when B removed requiring to GC element B only.
+This structure does not have as much impact on memory / does not produce as much waste compared to an Array List. 
+Removal operation simply re-links A-B-C chain to A-C when B is being removed. And GC required to remove B only.
 
-**TODO: More advanced data structures:**
+### TreeList
 
-3) Trees-like index structures optimised for traversals and removal of elements. 
+TreeList is optimised for fast traversal, insertion and remove operations at any index of the list.
+From documentation for org.apache.commons.collections4.list.TreeList:
 
-Complexity is O(n log n)
+`This list implementation utilises a tree structure internally to ensure that all insertions and removals are O(log n). 
+This provides much faster performance than both an ArrayList and a LinkedList where elements are inserted and removed repeatedly from anywhere in the list.`
+
+`The following relative performance statistics are indicative of this class:`
+
+                  get  add  insert  iterate  remove
+     TreeList       3    5       1       2       1
+     ArrayList      1    1      40       1      40
+     LinkedList  5800    1     350       2     325
+ 
+As algorithm requires to perform N iterations, each will retrieve and remove element from data set - complexity of implementation is O(N log N)
+
+This structure provides best performance for out of three for large N, K
 
 
-### Implementation using ArrayList and LinkedList
+### Implementation using ArrayList, LinkedList, TreeList
 
-As initial implementation I've decided to implement set of tests that can be used to evaluate solution. 
-And implemented (1), (2) - used reasonably simple solution as well easy to understand. 
+Three solutions vere implemented:
+
+* GameArrayListImpl
+* GameCircularListImpl
+* GameTreeListImpl
 
 ### Testing
 
 Unit tests were executed to verify correctness for different N, K less than 50 (please refer to GameTest.java). Both 1 and 2 passed number of small tests
 Long running tests were defined to mainly estimate time required for completion and have basic understanding of performance. Those tests exist in
-individual Game*ImplTest classes and were annotated with @Ignore as they are technically are not Unit tests and exist for experimentation / analysis purpose. 
+individual Game*ImplTest classes and were annotated with @Ignore as they are technically not Unit tests but for experimentation / analysis purpose. 
 
-Both solution performed similar for small N/K (<100) and tests returned results in milliseconds time.
+All three solution performed similar for small N/K (<100) and tests returned results in milliseconds time.
 
-Array list solution for large N test was aborted as it ran over 30m long time.
+#### Large N, K tests
 
-Several tests for Linked list solution were executed for same large N, while K for subsequent test increased by same order of magnitude. 
-Tests produced roughly proportional increase in time required to complete the test:
+##### Array list
+Large N test (N = 21,474,836  K = 1) executed on Array list imlementation was aborted as it ran longer than expected (over 30m long time).
 
-    N = 21,474,836  K = 1 runs around 17 seconds
-    N = 21,474,836  K = 10 runs around 23 seconds
-    N = 21,474,836  K = 100 runs around 1m 40 seconds
-    N = 21,474,836  K = 1000 runs around 15m
+##### Circular list (LinkedList) 
+Several tests for Linked list solution were executed for same large N, while K was increased for subsequent tests. 
+Time required to complete tests increased proportionally to increase of K:
 
-## Scenario: N is too large to fit in memory
+    N = 21,474,836  K = 1       took 10 s
+    N = 21,474,836  K = 10      took 16 s
+    N = 21,474,836  K = 100     took 57s
+    N = 21,474,836  K = 1000    took 8 m 16 s
 
-If we take it even further and generalise problem for N that is too large to fit in memory. In this case data can be partly offloaded to disk or handled completely in DB (depending on the N). 
-DB is capable of inserting, updating, removing elements, able to build/rebuild indexes. As discussed earlier, solution to this problem can't be described in map-reduce way and does not scale 
-horizontally on multiple servers. Thus very large datasets will run potentially many hours / days on single server. 
-Before attempting to solve this in map/reduce way it would require to reduce some of the problems constraints to allow parallelism.  
+##### Tree list
+Tests on Tree List implementation produced best results amongst three implementations:
+
+    N = 21,474,836  K = 1       took 22 s
+    N = 21,474,836  K = 10      took 25 s
+    N = 21,474,836  K = 100     took 35 s
+    N = 21,474,836  K = 1000    took 49 s
+    N = 21,474,836  K = 10000   took 1m 4s
+    N = 21,474,836  K = 100000  took 1m 1s
+
+## Scenario 2: N is too large to fit in memory
+
+Above we have reviewed scenario and implementations when N is small enough to fit into memory. Below is the opposite case.
+
+In case N is too large for data set to fit into memory, data can be partly offloaded to disk or handled completely in DB (depending on the N). 
+DB is capable of inserting, updating, removing elements, able to build/rebuild indexes. 
+
+At the same time, as discussed earlier, solution to this problem can't be described in map-reduce way and does not scale 
+horizontally on multiple servers. Thus very large datasets will run potentially many hours / days on single a server. 
+Before attempting to solve this problem in map/reduce fashion it would require to alleviate some of the problems constraints to allow parallelism and thus enable scalability.  
