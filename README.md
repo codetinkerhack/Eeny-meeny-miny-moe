@@ -38,20 +38,20 @@ Following are the key operations used by game simulation on main data structure:
 
 ## Problem classification analysis
 
-# Realtime / Batch
+### Realtime / Batch
 
 Solution required to produce a winner and elimination sequence as result. Based on this information assumption was made that it is required to produce batch result 
 and not to be optimised for real-time stream of elimination elements. Although it is possible to modify routines to deliver stream of elements in asynchronous fashion when elimination results become available.
 We still can make an assessment for each proposed solution if it will have better real-time response (next result is available in defined time) or should be used for batch result calculation.
 
-# Parallelism
+### Parallelism
 
 This problem solved by N sequential iterations and can't be executed on multiple parallel threads as every subsequent step depends on the outcome of previous.
 There might be some optimisations done but in general it is not a Map/Reduce problem. Some conditions of the problem may need to be relaxed to allow parallelism. 
 For example: group of N divided to groups of K then same problem applied to every of those groups, 
 then result combined and problem applied again to a result to reduce the set to a single winner.
 
-# Memory impact
+### Memory impact
 
 Simulation in general require to keep following data structures: N children, N children eliminated. There could be variations depending on the implementation / optimisations.
 One node in memory roughly estimated to occupy 40 bytes for LinkedList (2 pointers, one Integer, some overhead)
@@ -102,7 +102,7 @@ re-links A-B-C chain to A-C when B removed requiring to GC element B only.
 Complexity is O(n log n)
 
 
-### Implementation of 1 and 2
+### Implementation using ArrayList and LinkedList
 
 As initial implementation I've decided to implement set of tests that can be used to evaluate solution. 
 And implemented (1), (2) - used reasonably simple solution as well easy to understand. 
