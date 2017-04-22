@@ -2,10 +2,23 @@
 
 ### Prerequisites
 
-Project uses gradle to build jar artifacts, execute tests. Code requires JDK 1.8 to compile.
-in order to execute project from command line run following command:
+Project is using gradle build tool to build jar artifact, execute tests and other tasks. 
+Code requires JDK 1.8 to compile.
 
-gradle run
+In order to execute solution from command line please run following steps:
+
+Build jar:
+
+    ./gradlew clean fatJar
+
+then execute the solution:
+
+    java -jar build/libs/eeny-meeny-miny-moe-all-1.0-SNAPSHOT.jar 6 2
+
+Output should be similar to below
+
+    Winner is: 5
+    Elimination sequence is: 2 4 6 3 1
 
 
 ## Problem:
