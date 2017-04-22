@@ -15,7 +15,7 @@ public class CircularListTest {
 
         assertFalse(list.hasNext());
 
-        list.insert(new CircularList.Node<>(0));
+        list.add(0);
 
         assertTrue(list.hasNext());
 
@@ -30,10 +30,10 @@ public class CircularListTest {
         assertNull(list.getNext());
         assertNull(list.getPrev());
 
-        list.insert(new CircularList.Node<>(0));
+        list.add(0);
         assertNotNull(list.getNext());
         assertNotNull(list.getPrev());
-        assertTrue(list.getNext().getValue() == 0);
+        assertTrue(list.getNext() == 0);
     }
 
     @Test
@@ -41,10 +41,10 @@ public class CircularListTest {
         CircularList<Integer> list = new CircularList<>();
 
         for (int i = 0; i<10; i++) {
-            list.insert(new CircularList.Node<>(i));
+            list.add(i);
         }
         for (int i = 0; i<20; i++) {
-            assertTrue(list.getNext().getValue() == i % 10);
+            assertTrue(list.getNext() == i % 10);
         }
 
     }
@@ -55,19 +55,19 @@ public class CircularListTest {
         assertNull(list.getNext());
         assertNull(list.getPrev());
 
-        list.insert(new CircularList.Node<>(0));
-        list.insert(new CircularList.Node<>(1));
-        list.insert(new CircularList.Node<>(2));
+        list.add(0);
+        list.add(1);
+        list.add(2);
 
-        assertTrue(list.getCurrent().getValue() == 2);
-        assertTrue(list.getNext().getValue() == 0);
-        assertTrue(list.getNext().getValue() == 1);
+        assertTrue(list.getCurrent() == 2);
+        assertTrue(list.getNext() == 0);
+        assertTrue(list.getNext() == 1);
 
         list.remove();
 
-        assertTrue(list.getCurrent().getValue() == 2);
-        assertTrue(list.getNext().getValue() == 0);
-        assertTrue(list.getNext().getValue() == 2);
+        assertTrue(list.getCurrent() == 2);
+        assertTrue(list.getNext() == 0);
+        assertTrue(list.getNext() == 2);
 
     }
 
@@ -76,7 +76,7 @@ public class CircularListTest {
         CircularList<Integer> list = new CircularList<>();
 
         for (int i = 0; i<10; i++) {
-            list.insert(new CircularList.Node<>(i));
+            list.add(i);
         }
         for (int i = 0; i<10; i++) {
             list.remove();
@@ -88,21 +88,25 @@ public class CircularListTest {
     @Test
     public void testGetNext() throws Exception {
         CircularList<Integer> list = new CircularList<>();
-        list.insert(new CircularList.Node<>(0));
+        list.add(0);
+        list.add(1);
+        list.add(2);
 
-        assertNotNull(list.getNext());
-        assertNotNull(list.getPrev());
-        assertTrue(list.getNext().getValue() == 0);
+        assertTrue(list.getCurrent() == 2);
+        assertTrue(list.getNext() == 0);
+        assertTrue(list.getNext() == 1);
     }
 
     @Test
     public void testGetPrev() throws Exception {
         CircularList<Integer> list = new CircularList<>();
-        list.insert(new CircularList.Node<>(0));
+        list.add(0);
+        list.add(1);
+        list.add(2);
 
-        assertNotNull(list.getNext());
-        assertNotNull(list.getPrev());
-        assertTrue(list.getPrev().getValue() == 0);
+        assertTrue(list.getCurrent() == 2);
+        assertTrue(list.getPrev() == 1);
+        assertTrue(list.getPrev() == 0);
     }
 
 }

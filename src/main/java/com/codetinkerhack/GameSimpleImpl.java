@@ -1,6 +1,8 @@
 package com.codetinkerhack;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by evgeniys on 19/04/2017.
@@ -8,16 +10,16 @@ import java.util.ArrayList;
 public class GameSimpleImpl implements Game {
 
     @Override
-    public Integer[] getSequence(int n, int k) {
+    public List<Integer> getSequence(int n, int k) {
 
         if ( n <= 0  || k <= 0) {
-            throw new IllegalArgumentException("Values must be non negative, non zero");
+            throw new IllegalArgumentException("Values must not be negative or zero");
         }
 
         int currentIndex = 0;
 
         ArrayList<Integer> children = new ArrayList<>(n);
-        ArrayList<Integer> eliminationSequence = new ArrayList<>(n);
+        LinkedList<Integer> eliminationSequence = new LinkedList<>();
 
         for(int i = 1;i <= n;i++){
             children.add(i);
@@ -29,7 +31,7 @@ public class GameSimpleImpl implements Game {
             children.remove(currentIndex);
         }
 
-        return eliminationSequence.toArray(new Integer[0]);
+        return eliminationSequence;
     }
 
 }

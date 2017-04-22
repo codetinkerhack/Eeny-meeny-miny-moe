@@ -1,9 +1,16 @@
 package com.codetinkerhack;
 
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
         int n = 0, k = 0;
+
+        if (args.length == 0) {
+            System.out.println("Please specify N and K as arguments");
+            System.exit(0);
+        }
 
         try {
             n = Integer.parseInt(args[0]);
@@ -20,13 +27,16 @@ public class Main {
         }
 
         GameCircularListImpl game = new GameCircularListImpl();
-        Integer[] result = game.getSequence(n, k);
+        List<Integer> result = game.getSequence(n, k);
 
-        System.out.printf("Winner is %d", result[result.length - 1]);
+        System.out.printf("Winner is: %d ", result.get(result.size() - 1));
 
-        System.out.printf("\nElimination sequence is:");
-        for (int i = 0; i < result.length - 1; i++) {
-            System.out.printf("%d ", result[i]);
+        // Remove winner from elimination sequence.
+        result.remove(result.size() - 1);
+
+        System.out.printf("\nElimination sequence is: ");
+        for (Integer v : result) {
+            System.out.printf("%d ", v);
         }
     }
 }

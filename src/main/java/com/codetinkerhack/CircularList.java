@@ -1,5 +1,7 @@
 package com.codetinkerhack;
 
+import java.util.Iterator;
+
 /**
  * Created by evgeniys on 21/04/2017.
  *
@@ -9,12 +11,14 @@ package com.codetinkerhack;
 public class CircularList<T> {
 
 
-    private Node current;
-    private Node first;
+    private Node<T> current;
+    private Node<T> first;
     private Integer size = 0;
 
-    public Node<T> insert(Node<T> insertedNode) {
+    public void add(T value) {
         size++;
+
+        Node<T> insertedNode = new Node<>(value);
 
         if (current != null) {
             Node<T> next = current.getNext();
@@ -33,8 +37,6 @@ public class CircularList<T> {
             current.setPrev(insertedNode);
             current.setNext(insertedNode);
         }
-
-        return current;
     }
 
     public void remove() {
@@ -70,35 +72,45 @@ public class CircularList<T> {
             return true;
     }
 
-    public Node<T> getCurrent() {
-        return current;
+
+    public T getCurrent() {
+        return current.getValue();
     }
 
-    public Node<T> getNext() {
+    public T get(int k) {
+
+        for(int i = 1; i < k; i++) {
+            getNext();
+        }
+        return getCurrent();
+    }
+
+
+    public T getNext() {
 
         if (current == null) return  null;
 
         Node<T> next = current.getNext();
         current = next;
-        return next;
+        return next.getValue();
 
     }
 
-    public Node<T> getPrev() {
+    public T getPrev() {
 
         if (current == null) return  null;
 
-        Node<T> next = current.getNext();
+        Node<T> next = current.getPrev();
         current = next;
 
-        return next;
+        return next.getValue();
     }
 
     public void reset() {
         current = first;
     }
 
-    public static class Node<T> {
+    private static class Node<T> {
         private T value;
         private Node<T> next;
         private Node<T> prev;
@@ -108,27 +120,27 @@ public class CircularList<T> {
             setValue(value);
         }
 
-        public T getValue() {
+        private T getValue() {
             return value;
         }
 
-        public void setValue(T value) {
+        private void setValue(T value) {
             this.value = value;
         }
 
-        public Node<T> getNext() {
+        private Node<T> getNext() {
             return next;
         }
 
-        public void setNext(Node<T> next) {
+        private void setNext(Node<T> next) {
             this.next = next;
         }
 
-        public Node<T> getPrev() {
+        private Node<T> getPrev() {
             return prev;
         }
 
-        public void setPrev(Node<T> prev) {
+        private void setPrev(Node<T> prev) {
             this.prev = prev;
         }
 

@@ -14,7 +14,7 @@ public class GameSimpleImplTest extends GameTest {
         game = new GameSimpleImpl();
     }
 
-    // Aborted. Takes more than 5 min and still running.
+    // Aborted. Takes more than 30 min and still running.
     @Ignore
     @Test
     public void testLargeNumberStepOneCompletes() {

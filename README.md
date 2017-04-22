@@ -40,8 +40,8 @@ Following are the key operations used by game simulation on main data structure:
 
 * Realtime / Batch
 
-Solution required to produce winner and elimination sequence as result. Based on this assumption was made that it is required to produce result of batch job 
-and not required to be optimised for real-time (e.g. defined response time of N ms) response producing elimination elements in stream. 
+Solution required to produce a winner and elimination sequence as result. Based on this information assumption was made that it is required to produce batch result 
+and not required to be optimised for real-time (e.g. defined response time in ms) response producing elimination sequence as a stream. 
 However we still can make an assessment for each proposed solution if it will have better real-time response or should be used for batch result calculation.
 
 * Not paralellisable
@@ -53,14 +53,13 @@ then result combined and problem applied again to a result to reduce the set to 
 
 * Memory impact
 
-TODO: (Is this correct?) what do we need to store for this simulation to run? below is not correct. 
-What if we store only holes still eventually we will need to store N elements in memory. 
-what if those are stored as bits (of bytes) optimised structures.
+Simulation in general require to keep following data structures: N children, N children eliminated. There could be variations depending on the implementation / optimisations.
+One node in memory roughly estimated to occupy 40 bytes for LinkedList (2 pointers, one Integer, some overhead)
 
-Since actual N, K range is not defined (can be anything) below is an attempt to classify problem from memory perspective:
+Since actual values range for N, K is not defined (can be anything) below is an attempt to classify problem from memory perspective:
 
-* For N small enough to fit in memory (N < ...) - in memory data structures can be used
-* For large N that do not fit in memory (N > ...) - data may need to be partially cached in memory and mostly stored on disk.
+* For N small enough to fit in memory (e.g: 2 * N * 40 = 10th of GB) - in memory data structures can be used
+* For large N that do not fit in memory (e.g: 2 * N * 40 = more than 100 GB) - data may need to be partially cached in memory and mostly stored on disk.
 
 
 **N is small enough to fit in memory solution space**
@@ -73,7 +72,7 @@ Different performance for those operations reflects on CPU cycles and memory per
 Array list is backed by arrays. This structure is optimised for O(1) look up at K index position. 
 However removal of the elements is expensive O(N) operation. 
 
-As remove operation is used almost on every iterations of N elements overall complexity is O(N^2).
+As remove operation is used many times on every iterations of N elements overall complexity is O(N^2).
 
 This structure / algorithm works fine for small N, large K.
 Each removal of element triggers resizing of array. Resizing of array is done by creating a copy. 
@@ -95,28 +94,32 @@ This structure works well for large N, small K as average complexity works out t
 This structure as well does not have as much impact on memory waste compared to an Array List as removal operation simply 
 re-links A-B-C chain to A-C when B removed requiring to GC element B only.
 
+**TODO: More advanced data structures:**
+
+3) Trees-like index structures optimised for traversals and removal of elements. 
+
+Complexity is O(n log n)
+
 
 **Implementation of 1 and 2**
 
 As initial implementation I've decided to implement set of tests that can be used to evaluate solution. 
 And implemented (1), (2) - used reasonably simple solution as well easy to understand. 
 
-TODO: Tests executed
+**Testing**
 
-Array list solution for large N does not run to completion.
+Unit tests were executed to verify correctness for different N, K less than 50 (please refer to GameTest.java). Both 1 and 2 passed number of small tests
+Long running tests were defined to mainly estimate time required for completion and have basic understanding of performance. Those tests exist in
+individual Game*ImplTest classes and were annotated with @Ignore as they are technically are not Unit tests and exist for experimentation / analysis purpose. 
 
-Linked list solution performance yield roughly linear time to complete trend for same N, linearly increased K:
+Array list solution for large N test was aborted as it ran unreasonably long time:
 
-    // N = 2,147,483, K = 1 runs around 17 seconds
+Testing Linked list solution for same large N, and K increased by same constant produced roughly proportional increase in time required to complete the test:
+
+    // N = 2,147,483,  K = 1 runs around 17 seconds
     // N = 2,147,483, K = 10 runs around 23 seconds
     // N = 2,147,483, K = 100 runs around 1m 40 seconds
     // N = 2,147,483, K = 1000 runs around 15m
-
-**TODO: More advanced data structures:**
-
-3) Trees-like index structures optimised for traversals and removal of elements. 
-
-Complexity is O(n log n)
 
 
 **TODO: N is large to fit in memory solution space**
