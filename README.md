@@ -1,6 +1,6 @@
-#Eeny-meeny-miny-moe
+# Eeny-meeny-miny-moe
 
-##Problem:
+## Problem:
  
 Consider the following children’s game:
  
@@ -20,7 +20,7 @@ additional classes, tests, etc, you need to support the design of your solution.
 Please document design decisions you have made i.e. general approach, 
 where and why you have sacrificed performance for maintainability or visa versa etc.
 
-##Solution:
+## Solution:
 
 The problem is quite closely resembles well known **_Josephus problem_**.
 Game simulation can be described as follows:
@@ -36,7 +36,7 @@ Following are the key operations used by game simulation on main data structure:
 1) Retrieve Child at position K
 2) Remove Child at position K
 
-##Problem classification analysis
+## Problem classification analysis
 
 # Realtime / Batch
 
@@ -63,12 +63,12 @@ for example 32GB will be equal to storing N ~ 430 million elements
 * For large N that do not fit in memory (e.g: 2 * N * 40 = more than 128 GB?) - data may need to be partially cached in memory and mostly stored on disk.
 
 
-##Scenario: N is small enough to fit in memory
+## Scenario: N is small enough to fit in memory
 
 In memory data structure should support quick random look up, remove operations.
 Different performance for those operations reflects on CPU cycles and memory performance. It is briefly discussed for each of the data structures.
 
-###Array list
+### Array list
 
 Array list is backed by arrays. This structure is optimised for O(1) look up at K index position. 
 However removal of the elements is expensive O(N) operation. 
@@ -81,7 +81,7 @@ It utilises max of 2 * N elements storage at every step. Doing it for large sets
 (as well creates memory waste which is usually not a big problem for GC but still requires CPU).
 Removal of elements at every iteration is the reason algorithm performs poorly for large N.
 
-###Linked list
+### Linked list
 
 Or slightly more convenient Circular list. Circular List is doubly linked list that jumps to first element of sequence after last element was reached and next element requested.
 
@@ -102,12 +102,12 @@ re-links A-B-C chain to A-C when B removed requiring to GC element B only.
 Complexity is O(n log n)
 
 
-###Implementation of 1 and 2
+### Implementation of 1 and 2
 
 As initial implementation I've decided to implement set of tests that can be used to evaluate solution. 
 And implemented (1), (2) - used reasonably simple solution as well easy to understand. 
 
-###Testing
+### Testing
 
 Unit tests were executed to verify correctness for different N, K less than 50 (please refer to GameTest.java). Both 1 and 2 passed number of small tests
 Long running tests were defined to mainly estimate time required for completion and have basic understanding of performance. Those tests exist in
@@ -125,7 +125,7 @@ Tests produced roughly proportional increase in time required to complete the te
     N = 21,474,836  K = 100 runs around 1m 40 seconds
     N = 21,474,836  K = 1000 runs around 15m
 
-##Scenario: N is too large to fit in memory
+## Scenario: N is too large to fit in memory
 
 If we take it even further and generalise problem for N that is too large to fit in memory. In this case data can be partly offloaded to disk or handled completely in DB (depending on the N). 
 DB is capable of inserting, updating, removing elements, able to build/rebuild indexes. As discussed earlier, solution to this problem can't be described in map-reduce way and does not scale 
