@@ -1,6 +1,6 @@
 # Eeny-meeny-miny-moe
 
-### Prerequisites
+### Compiling and running from commandline
 
 Project is using gradle build tool to build jar artifact, execute tests and other tasks. 
 Code requires JDK 1.8 to compile.
