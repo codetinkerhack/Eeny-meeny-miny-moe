@@ -156,7 +156,7 @@ individual Game*ImplTest classes and were annotated with @Ignore as they are tec
 #### Large N, K tests
 
 ##### Array list
-Large N test (N = 21,474,836  K = 1) executed on Array list imlementation was aborted as it ran longer than expected (over 30m).
+Large N test (N = 21,474,836  K = 1) executed on Array list implementation was aborted as it ran longer than expected (over 30m).
 
 ##### Circular list (LinkedList) 
 Several tests for Linked list solution were executed for same large N, while K was increased for subsequent tests. 
@@ -188,5 +188,5 @@ In Scenario 1 we have reviewed implementations for datasets where N is small eno
 In case data sets is too large to fit in memory, data can be partly offloaded to disk or handled completely in DB (depending on the N). 
 
 At the same time, as discussed earlier, solution to this problem can't be described in map-reduce way and does not scale 
-horizontally. Thus very large datasets will run potentially many days/hourss on single a server. 
+horizontally. Thus very large datasets will run potentially many days/hours on single server. 
 Before attempting to solve this problem in map/reduce fashion it would require to alleviate some of the problem's constraints to allow scalability.
