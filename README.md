@@ -5,13 +5,19 @@
 Project is using gradle build tool to build jar artifact, execute tests and other tasks. 
 Code requires JDK 1.8 to compile.
 
-In order to execute solution from command line please run following steps:
+In order to execute solution from command line please run following steps from the project folder:
 
-Build jar:
+Build jar
+
+Using gradle wrapper:
 
     ./gradlew clean fatJar
 
-then execute the solution:
+Or alternatively just gradle (must be installed):
+    
+    ./gradle clean fatJar
+
+then execute the solution (below we pass N=6 and K=2):
 
     java -jar build/libs/eeny-meeny-miny-moe-all-1.0-SNAPSHOT.jar 6 2
 
