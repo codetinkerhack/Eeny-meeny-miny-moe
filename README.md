@@ -104,9 +104,9 @@ It utilises max of 2 * N elements storage at every step. Doing it for large sets
 (as well creates memory waste which is usually not a big problem for Garbage Collection (GC) but still requires CPU).
 Removal of elements at every iteration is the reason algorithm performs poorly for large N.
 
-### Linked list (Circular list)
+### Circular list
 
-Linked list or slightly more convenient variation Circular list. Circular List is a linked list that jumps back to first element of sequence after last element was reached and next element requested.
+Circular list is a slightly more convenient variation of Linked list. Circular List implementation returns to first element of a sequence after last element was reached and next element requested.
 
 This structure is backed by a chain of linked elements. 
 Look up by index at K position is expensive O(K) operation (as it requires skipping K positions). 
@@ -148,11 +148,10 @@ Three solutions vere implemented:
 
 ### Testing
 
-Unit tests were executed to verify correctness for different N, K less than 50 (please refer to GameTest.java). Both 1 and 2 passed number of small tests
+Unit tests were executed to verify correctness for different N, K less than 50 (please refer to GameTest.java). All three implementations passed tests and performed similar for small N/K - tests returned results in milliseconds time.
+
 Long running tests were defined to mainly estimate time required for completion and have basic understanding of performance. Those tests exist in
 individual Game*ImplTest classes and were annotated with @Ignore as they are technically not Unit tests but for experimentation / analysis purpose. 
-
-All three solution performed similar for small N/K (<100) and tests returned results in milliseconds time.
 
 #### Large N, K tests
 
