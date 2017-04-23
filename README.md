@@ -150,7 +150,7 @@ Three solutions vere implemented:
 
 ### Testing
 
-Unit tests were executed to verify correctness for different N, K less than 50 (please refer to GameTest.java). All three implementations passed tests and performed similar for small N/K - tests returned results in milliseconds time.
+Unit tests were executed to verify correctness for different N, K less than 50 (please refer to GameTest.java). All three implementations passed tests and performed similar for small N/K (max value unit tested for N = 1000) - tests returned results in milliseconds time.
 
 Long running tests were defined to mainly estimate time required for completion and have basic understanding of performance. Those tests exist in
 individual Game*ImplTest classes and were annotated with @Ignore as they are technically not Unit tests but for experimentation / analysis purpose. 
