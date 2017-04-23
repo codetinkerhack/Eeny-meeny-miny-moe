@@ -7,9 +7,7 @@ Code requires JDK 1.8 to compile.
 
 In order to execute solution from command line please run following steps from the project folder:
 
-Build jar
-
-Using gradle wrapper:
+Build jar using gradle wrapper:
 
     ./gradlew clean fatJar
 
@@ -21,7 +19,7 @@ then execute the solution (below we pass N=6 and K=2):
 
     java -jar build/libs/eeny-meeny-miny-moe-all-1.0-SNAPSHOT.jar 6 2
 
-Output should be similar to below
+Output should be similar to:
 
     Winner is: 5
     Elimination sequence is: 2 4 6 3 1
@@ -67,13 +65,11 @@ Following are the key operations used by game simulation on main data structure:
 
 ### Realtime / Batch
 
-Solution required to produce a winner and elimination sequence as result. Based on this information assumption was made that it is required to produce batch result 
-and not to be optimised for real-time stream of elimination elements. Although it is possible to modify routines to deliver stream of elements in asynchronous fashion when elimination results become available.
-We still can make an assessment for each proposed solution if it will have better real-time response (next result is available in defined time) or should be used for batch result calculation.
+Solution required to produce a winner and elimination sequence as a result. Based on this information assumption was made that it is required to produce answer as result of batch processing rather than real-time stream of elimination elements and winner. Although, it is possible to modify routines to deliver stream of elements in asynchronous fashion when elimination results become available.
 
 ### Parallelism
 
-This problem solved by N sequential iterations and can't be executed on multiple parallel threads as every subsequent step depends on the outcome of previous.
+This problem solved by N sequential iterations and not optimised to run on multiple parallel threads as every subsequent step depends on the outcome of previous.
 There might be some optimisations done but in general it is not a Map/Reduce problem. Some conditions of the problem may need to be relaxed to allow parallelism. 
 For example: group of N divided to groups of K then same problem applied to every of those groups, 
 then result combined and problem applied again to a result to reduce the set to a single winner.
@@ -81,7 +77,7 @@ then result combined and problem applied again to a result to reduce the set to 
 ### Memory impact
 
 Simulation in general require to keep following data structures: N children, N children eliminated. There could be variations depending on the implementation / optimisations.
-One node in memory roughly estimated to occupy 40 bytes for LinkedList (2 pointers, one Integer, some overhead)
+For LinkedList one node (child) in memory roughly estimated to occupy 40 bytes (2 pointers, one Integer, some overhead)
 
 Since actual values range for N, K is not defined (can be anything) below is an attempt to classify problem from memory perspective:
 
@@ -110,9 +106,9 @@ Removal of elements at every iteration is the reason algorithm performs poorly f
 
 ### Linked list (Circular list)
 
-Or slightly more convenient Circular list. Circular List is a linked list that jumps back to first element of sequence after last element was reached and next element requested.
+Linked list or slightly more convenient variation Circular list. Circular List is a linked list that jumps back to first element of sequence after last element was reached and next element requested.
 
-This structure is backed by chain of linked elements. 
+This structure is backed by a chain of linked elements. 
 Look up by index at K position is expensive O(K) operation (as it requires skipping K positions). 
 Removal of elements is fast O(1) operation. 
 
@@ -161,7 +157,7 @@ All three solution performed similar for small N/K (<100) and tests returned res
 #### Large N, K tests
 
 ##### Array list
-Large N test (N = 21,474,836  K = 1) executed on Array list imlementation was aborted as it ran longer than expected (over 30m long time).
+Large N test (N = 21,474,836  K = 1) executed on Array list imlementation was aborted as it ran longer than expected (over 30m).
 
 ##### Circular list (LinkedList) 
 Several tests for Linked list solution were executed for same large N, while K was increased for subsequent tests. 
@@ -184,11 +180,10 @@ Tests on Tree List implementation produced best results amongst three implementa
 
 ## Scenario 2: N is too large to fit in memory
 
-Above we have reviewed scenario and implementations when N is small enough to fit into memory. Below is the opposite case.
+In Scenario 1 we have reviewed implementations when N is small enough to fit in memory. Here we review the opposite case.
 
-In case N is too large for data set to fit into memory, data can be partly offloaded to disk or handled completely in DB (depending on the N). 
-DB is capable of inserting, updating, removing elements, able to build/rebuild indexes. 
+In case N is too large for data set to fit in memory, data can be partly offloaded to disk or handled completely in DB (depending on the N). 
 
 At the same time, as discussed earlier, solution to this problem can't be described in map-reduce way and does not scale 
-horizontally on multiple servers. Thus very large datasets will run potentially many hours / days on single a server. 
-Before attempting to solve this problem in map/reduce fashion it would require to alleviate some of the problems constraints to allow parallelism and thus enable scalability.  
+horizontally. Thus very large datasets will run potentially many hours / days on single a server. 
+Before attempting to solve this problem in map/reduce fashion it would require to alleviate some of the problem's constraints to allow scalability.
