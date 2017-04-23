@@ -65,12 +65,12 @@ Following are the key operations used by game simulation on main data structure:
 
 ### Realtime / Batch
 
-Solution required to produce a winner and elimination sequence as a result. Based on this information assumption was made that it is required to produce answer as result of batch processing rather than real-time stream of elimination elements and winner. Although, it is possible to modify routines to deliver stream of elements in asynchronous fashion when elimination results become available.
+As result solution required to produce a winner and elimination sequence. Implementations provided are producing batch result. Although, it is possible to modify routines to deliver stream of elements in asynchronous fashion when elimination results become available. This can be convenient for long running jobs when it is beneficial to receive sequence elements when partial result become available.
 
 ### Parallelism
 
 This problem solved by N sequential iterations and not optimised to run on multiple parallel threads as every subsequent step depends on the outcome of previous.
-There might be some optimisations done but in general it is not a Map/Reduce problem. Some conditions of the problem may need to be relaxed to allow parallelism. 
+There might be some optimisations done, but in general it is not a Map/Reduce problem. Some conditions of the problem may need to be alleviated to allow parallelism. 
 For example: group of N divided to groups of K then same problem applied to every of those groups, 
 then result combined and problem applied again to a result to reduce the set to a single winner.
 
@@ -120,8 +120,8 @@ Removal operation simply re-links A-B-C chain to A-C when B is being removed. An
 
 ### TreeList
 
-TreeList is optimised for fast traversal, insertion and remove operations at any index of the list.
-From documentation for org.apache.commons.collections4.list.TreeList:
+TreeList (Apache commons collections) is optimised for fast traversal, insertion and remove operations at any index of the list.
+Below paragraph was taken from documentation for org.apache.commons.collections4.list.TreeList:
 
 `This list implementation utilises a tree structure internally to ensure that all insertions and removals are O(log n). 
 This provides much faster performance than both an ArrayList and a LinkedList where elements are inserted and removed repeatedly from anywhere in the list.`
@@ -135,7 +135,7 @@ This provides much faster performance than both an ArrayList and a LinkedList wh
  
 As algorithm requires to perform N iterations, each will retrieve and remove element from data set - complexity of implementation is O(N log N)
 
-This structure provides best performance for out of three for large N, K
+This structure provides best performance out of three discussed for large N, K
 
 
 ### Implementation using ArrayList, LinkedList, TreeList
@@ -177,12 +177,16 @@ Tests on Tree List implementation produced best results amongst three implementa
     N = 21,474,836  K = 10000   took 1m 4s
     N = 21,474,836  K = 100000  took 1m 1s
 
+Time remained roughly constant for different large K
+
+This implementation was decided as a winner and used in Main.class (that is invoked from commandline).
+
 ## Scenario 2: N is too large to fit in memory
 
-In Scenario 1 we have reviewed implementations when N is small enough to fit in memory. Here we review the opposite case.
+In Scenario 1 we have reviewed implementations for datasets where N is small enough to fit in memory. Here we review the opposite case.
 
-In case N is too large for data set to fit in memory, data can be partly offloaded to disk or handled completely in DB (depending on the N). 
+In case data sets is too large to fit in memory, data can be partly offloaded to disk or handled completely in DB (depending on the N). 
 
 At the same time, as discussed earlier, solution to this problem can't be described in map-reduce way and does not scale 
-horizontally. Thus very large datasets will run potentially many hours / days on single a server. 
+horizontally. Thus very large datasets will run potentially many days/hourss on single a server. 
 Before attempting to solve this problem in map/reduce fashion it would require to alleviate some of the problem's constraints to allow scalability.
