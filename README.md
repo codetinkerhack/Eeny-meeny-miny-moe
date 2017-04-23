@@ -65,13 +65,15 @@ Following are the key operations used by game simulation on main data structure:
 
 ### Realtime / Batch
 
-As result solution required to produce a winner and elimination sequence. Implementations provided are producing batch result. Although, it is possible to modify routines to deliver stream of elements in asynchronous fashion when elimination results become available. This can be convenient for long running jobs when it is beneficial to receive sequence elements when partial result become available.
+Solution required to produce a winner and elimination sequence. Implementations provided in this project are producing batch result (result available at the end of simulation). 
+However it is possible to modify implementation to deliver stream of elements in asynchronous fashion when elimination results become available. 
+This can be convenient for long running jobs when it is beneficial to receive sequence elements when partial result become available.
 
 ### Parallelism
 
 This problem solved by N sequential iterations and not optimised to run on multiple parallel threads as every subsequent step depends on the outcome of previous.
 There might be some optimisations done, but in general it is not a Map/Reduce problem. Some conditions of the problem may need to be alleviated to allow parallelism. 
-For example: group of N divided to groups of K then same problem applied to every of those groups, 
+For example: group of N divided to several smaller groups, then same problem applied to every of those groups, 
 then result combined and problem applied again to a result to reduce the set to a single winner.
 
 ### Memory impact

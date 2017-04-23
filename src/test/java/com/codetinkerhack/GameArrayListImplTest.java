@@ -20,7 +20,7 @@ public class GameArrayListImplTest extends GameTest {
     @Ignore
     @Test
     public void testLargeNumberStepOneCompletes() {
-        Object result = game.getSequence(Integer.MAX_VALUE / 100, 1);
+        Object result = game.runSimulation(Integer.MAX_VALUE / 100, 1);
         assertNotNull(result);
     }
 }

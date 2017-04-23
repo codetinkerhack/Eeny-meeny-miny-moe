@@ -1,7 +1,5 @@
 package com.codetinkerhack;
 
-import java.util.List;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -27,15 +25,12 @@ public class Main {
         }
 
         GameTreeListImpl game = new GameTreeListImpl();
-        List<Integer> result = game.getSequence(n, k);
+        Result result = game.runSimulation(n, k);
 
-        System.out.printf("Winner is: %d ", result.get(result.size() - 1));
-
-        // Remove winner from elimination sequence.
-        result.remove(result.size() - 1);
+        System.out.printf("Winner is: %d ", result.getWinner());
 
         System.out.printf("\nElimination sequence is: ");
-        for (Integer v : result) {
+        for (Integer v : result.getEliminationSequence()) {
             System.out.printf("%d ", v);
         }
     }

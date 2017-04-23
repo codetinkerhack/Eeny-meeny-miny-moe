@@ -66,10 +66,7 @@ public class CircularList<T> {
     }
 
     public boolean hasNext() {
-        if (size == 0)
-            return false;
-        else
-            return true;
+        return size != 0;
     }
 
 
@@ -95,7 +92,10 @@ public class CircularList<T> {
         Node<T> next = current.getNext();
         current = next;
         return next.getValue();
+    }
 
+    public int getSize() {
+        return size;
     }
 
     public T getPrev() {

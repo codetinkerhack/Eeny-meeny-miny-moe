@@ -25,6 +25,17 @@ public class CircularListTest {
     }
 
     @Test
+    public void getSize() throws Exception {
+        CircularList<Integer> list = new CircularList<>();
+
+        list.add(0);
+        list.add(1);
+        list.add(2);
+
+        assertTrue(list.getSize() == 3);
+    }
+
+    @Test
     public void testInsertSingle() throws Exception {
         CircularList<Integer> list = new CircularList<>();
         assertNull(list.getNext());

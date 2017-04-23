@@ -11,7 +11,7 @@ import java.util.List;
 public class GameTreeListImpl implements Game {
 
     @Override
-    public List<Integer> getSequence(int n, int k) {
+    public Result runSimulation(int n, int k) {
 
         if ( n <= 0  || k <= 0) {
             throw new IllegalArgumentException("Values must not be negative or zero");
@@ -27,12 +27,12 @@ public class GameTreeListImpl implements Game {
             children.add(i);
         }
 
-        while(children.size() > 0){
+        while(children.size() > 1){
             currentIndex = (currentIndex + k - 1) % children.size();
             eliminationSequence.add(children.get(currentIndex));
             children.remove(currentIndex);
         }
 
-        return eliminationSequence;
+        return new Result(children.get(0), eliminationSequence);
     }
 }

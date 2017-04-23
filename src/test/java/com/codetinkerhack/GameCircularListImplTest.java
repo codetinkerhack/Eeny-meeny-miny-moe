@@ -20,7 +20,7 @@ public class GameCircularListImplTest extends GameTest {
     @Ignore
     @Test
     public void testLargeNumberStepOneCompletes() {
-        Object result = game.getSequence(Integer.MAX_VALUE / 100, 1);
+        Object result = game.runSimulation(Integer.MAX_VALUE / 100, 1);
         assertNotNull(result);
     }
 
@@ -28,7 +28,7 @@ public class GameCircularListImplTest extends GameTest {
     @Ignore
     @Test
     public void testLargeNumberStepTenCompletes() {
-        Object result = game.getSequence(Integer.MAX_VALUE / 100, 10);
+        Object result = game.runSimulation(Integer.MAX_VALUE / 100, 10);
         assertNotNull(result);
     }
 
@@ -36,7 +36,7 @@ public class GameCircularListImplTest extends GameTest {
     @Ignore
     @Test
     public void testLargeNumberStepHundredCompletes() {
-        Object result = game.getSequence(Integer.MAX_VALUE / 100, 100);
+        Object result = game.runSimulation(Integer.MAX_VALUE / 100, 100);
         assertNotNull(result);
     }
 
@@ -44,7 +44,7 @@ public class GameCircularListImplTest extends GameTest {
     @Ignore
     @Test
     public void testLargeNumberStepThousandCompletes() {
-        Object result = game.getSequence(Integer.MAX_VALUE / 100, 1000);
+        Object result = game.runSimulation(Integer.MAX_VALUE / 100, 1000);
         assertNotNull(result);
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
 public class GameCircularListImpl implements Game {
 
     @Override
-    public List<Integer> getSequence(int n, int k) {
+    public Result runSimulation(int n, int k) {
 
         if ( n <= 0  || k <= 0) {
             throw new IllegalArgumentException("Values must not be negative or zero");
@@ -27,11 +27,11 @@ public class GameCircularListImpl implements Game {
         children.reset();
 
         // run main elimination loop
-        while(children.hasNext()){
+        while(children.getSize() > 1){
             eliminationSequence.add(children.skipK(k));
             children.remove();
         }
 
-        return eliminationSequence;
+        return new Result(children.getNext(), eliminationSequence);
     }
 }
