@@ -6,8 +6,13 @@ import java.util.List;
  * Created by evgeniys on 23/04/2017.
  */
 public class Result {
-    private final Integer winner;
-    private final List<Integer> eliminationSequence;
+
+    private Integer winner;
+    private List<Integer> eliminationSequence;
+
+    // Default constructor needed for restTemplate tests to construct ResponseEntity<Result>
+    public Result() {
+    }
 
     public Result(Integer winner, List<Integer> eliminationSequence) {
         this.winner = winner;
@@ -18,7 +23,16 @@ public class Result {
         return winner;
     }
 
+    public void setWinner(Integer winner) {
+        this.winner = winner;
+    }
+
     public List<Integer> getEliminationSequence() {
         return eliminationSequence;
     }
+
+    public void setEliminationSequence(List<Integer> eliminationSequence) {
+        this.eliminationSequence = eliminationSequence;
+    }
+
 }

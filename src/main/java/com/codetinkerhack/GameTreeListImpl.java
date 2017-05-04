@@ -1,6 +1,7 @@
 package com.codetinkerhack;
 
 import org.apache.commons.collections4.list.TreeList;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 /**
  * Created by evgeniys on 22/04/2017.
  */
+@Component
 public class GameTreeListImpl implements Game {
 
     @Override
